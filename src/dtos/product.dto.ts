@@ -11,4 +11,5 @@ export class createProductDto {
   public price: number;
   @IsBoolean()
   public isFavorite: boolean;
+  category: any;
 }
