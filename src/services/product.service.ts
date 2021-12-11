@@ -27,7 +27,7 @@ class ProductsService {
       throw new HttpException(400, "You're not productsData");
     const products: Products[] = await this.Products.find();
     const length: number = products.length;
-    if(length == 0) {productsData.id = length}else{productsData.id = length + 1;}
+    productsData.id = length;
     const createProductsData: Products = await this.Products.create(
       productsData
     );

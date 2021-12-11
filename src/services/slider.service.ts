@@ -19,7 +19,7 @@ class SlidersService {
       throw new HttpException(400, "You're not productsData");
     const slider: Slider[] = await this.slider.find();
     const length: number = slider.length;
-    if(length == 0) {sliderData.id = length}else{sliderData.id = length + 1;}
+    sliderData.id = length ;
     const createSliderData: Slider = await this.slider.create(sliderData);
     return createSliderData;
   }

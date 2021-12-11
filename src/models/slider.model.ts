@@ -1,6 +1,6 @@
 import { model, Schema, Document, connection } from "mongoose";
 import { Slider } from "@/interfaces/slider.interface";
-import autoIncrement from "mongoose-auto-increment";
+//import autoIncrement from "mongoose-auto-increment";
 
 const sliderSchema: Schema = new Schema(
   {
@@ -27,8 +27,8 @@ const sliderSchema: Schema = new Schema(
     },
   }
 );
-autoIncrement.initialize(connection);
-sliderSchema.plugin(autoIncrement.plugin, "Slider");
+//autoIncrement.initialize(connection);
+//sliderSchema.plugin(autoIncrement.plugin, "Slider");
 
 const SliderModel = model<Slider & Document>("Slider", sliderSchema);
 
