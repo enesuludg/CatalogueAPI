@@ -1,26 +1,34 @@
-import { model, Schema, Document, connection } from 'mongoose';
-import { Slider } from '@/interfaces/slider.interface';
-import autoIncrement from 'mongoose-auto-increment';
+import { model, Schema, Document, connection } from "mongoose";
+import { Slider } from "@/interfaces/slider.interface";
+import autoIncrement from "mongoose-auto-increment";
 
 const sliderSchema: Schema = new Schema(
   {
+    id: {
+      type: Number,
+      required: true,
+    },
     image: {
       type: String,
       required: true,
     },
-    categoryId: {
-      type: Schema.Types.ObjectId,
+    productId: {
+      type: Number,
       required: true,
-      ref: 'Product',
     },
   },
   {
     versionKey: false,
-  },
+    toJSON: {
+      transform(_doc, ret) {
+        delete ret._id;
+      },
+    },
+  }
 );
 autoIncrement.initialize(connection);
-sliderSchema.plugin(autoIncrement.plugin, 'Slider');
+sliderSchema.plugin(autoIncrement.plugin, "Slider");
 
-const SliderModel = model<Slider & Document>('Slider', sliderSchema);
+const SliderModel = model<Slider & Document>("Slider", sliderSchema);
 
 export default SliderModel;

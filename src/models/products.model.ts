@@ -1,13 +1,15 @@
-import { model, Schema, Document, connection } from 'mongoose';
-import { Products } from '@/interfaces/products.interface';
-import autoIncrement from 'mongoose-auto-increment';
+import { model, Schema, Document } from "mongoose";
+import { Products } from "@/interfaces/products.interface";
 
 const productsSchema: Schema = new Schema(
   {
-    categoryId: {
-      type: Schema.Types.ObjectId,
+    id: {
+      type: Number,
       required: true,
-      ref: 'Category',
+    },
+    category: {
+      type: Number,
+      required: true,
     },
     name: {
       type: String,
@@ -23,16 +25,20 @@ const productsSchema: Schema = new Schema(
     },
     isFavorite: {
       type: Boolean,
-      required: true,
+      default: false,
+      required: false,
     },
   },
   {
     versionKey: false,
-  },
+    toJSON: {
+      transform(_doc, ret) {
+        delete ret._id;
+      },
+    },
+  }
 );
-autoIncrement.initialize(connection);
-productsSchema.plugin(autoIncrement.plugin, 'Product');
 
-const ProductsModel = model<Products & Document>('Product', productsSchema);
+const ProductsModel = model<Products & Document>("Product", productsSchema);
 
 export default ProductsModel;

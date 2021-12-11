@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import { Slider } from '@/interfaces/slider.interface';
-import SlidersService from '@/services/slider.service';
-import { createSliderDto } from '@/dtos/slider.dto';
+import { NextFunction, Request, Response } from "express";
+import { Slider } from "@/interfaces/slider.interface";
+import SlidersService from "@/services/slider.service";
+import { createSliderDto } from "@/dtos/slider.dto";
 
 class IndexController {
   public slidersService = new SlidersService();
@@ -13,33 +13,49 @@ class IndexController {
       next(error);
     }
   };
-  public getSlider = async (req: Request, res: Response, next: NextFunction) => {
+  public getSlider = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const CategoryId: string = req.params.id;
-      const categoryData: Slider = await this.slidersService.findCategoryById(CategoryId);
+      const categoryData: Slider[] = await this.slidersService.findAllSlider();
 
-      res.status(200).json({ data: categoryData, message: 'findOne' });
+      res.status(200).json({ data: categoryData, message: "findOne" });
     } catch (error) {
       next(error);
     }
   };
 
-  public createSlider = async (req: Request, res: Response, next: NextFunction) => {
+  public createSlider = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const categoryData: createSliderDto = req.body;
-      const createCategoryData: Slider = await this.slidersService.createCategory(categoryData);
+      const createCategoryData: Slider = await this.slidersService.createSlider(
+        categoryData
+      );
 
-      res.status(201).json({ data: createCategoryData, message: 'created' });
+      res.status(201).json({ data: createCategoryData, message: "created" });
     } catch (error) {
       next(error);
     }
   };
-  public createFavorite = async (req: Request, res: Response, next: NextFunction) => {
+  public createFavorite = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const categoryData: createSliderDto = req.body;
-      const createCategoryData: Slider = await this.slidersService.createCategory(categoryData);
+      const createCategoryData: Slider =
+        await this.slidersService.createFavorite(categoryData);
 
-      res.status(201).json({ data: createCategoryData, message: 'created' });
+      res
+        .status(200)
+        .json({ data: createCategoryData, message: "AddFavorite" });
     } catch (error) {
       next(error);
     }

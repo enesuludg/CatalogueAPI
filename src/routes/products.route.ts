@@ -1,20 +1,20 @@
 import { Router } from 'express';
-import UsersController from '@/controllers/category.controller';
+import ProductController from '@/controllers/products.controller';
 import { Routes } from '@interfaces/routes.interface';
 
-class UsersRoute implements Routes {
+class ProductsRoute implements Routes {
   public path = '/products';
   public router = Router();
-  public usersController = new UsersController();
+  public productController = new ProductController();
 
   constructor() {
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:id`, this.usersController.getCategoryById);
-    this.router.post(`${this.path}`, this.usersController.createCategory);
+    this.router.get(`${this.path}/:id`, this.productController.getProductById);
+    this.router.post(`${this.path}`, this.productController.createProduct);
   }
 }
 
-export default UsersRoute;
+export default ProductsRoute;

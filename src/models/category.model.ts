@@ -1,9 +1,11 @@
-import { model, Schema, Document, connection } from 'mongoose';
-import { Category } from '@/interfaces/category.interface';
-import autoIncrement from 'mongoose-auto-increment';
-
+import { model, Schema, Document } from "mongoose";
+import { Category } from "@/interfaces/category.interface";
 const categorySchema: Schema = new Schema(
   {
+    id: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -15,15 +17,13 @@ const categorySchema: Schema = new Schema(
   },
   {
     versionKey: false,
-  },
+    toJSON: {
+      transform(_doc, ret) {
+        delete ret._id;
+      },
+    },
+  }
 );
-autoIncrement.initialize(connection);
-categorySchema.plugin(autoIncrement.plugin, 'Category');
-categorySchema.method('toJSON', function () {
-  const { _id, ...object } = this.toObject();
-  object.id = _id;
-  return object;
-});
-const categoryModel = model<Category & Document>('Category', categorySchema);
+const categoryModel = model<Category & Document>("Category", categorySchema);
 
 export default categoryModel;

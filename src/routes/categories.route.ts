@@ -2,7 +2,7 @@ import { Router } from 'express';
 import UsersController from '@/controllers/category.controller';
 import { Routes } from '@interfaces/routes.interface';
 
-class UsersRoute implements Routes {
+class CategoriesRoute implements Routes {
   public path = '/categories';
   public router = Router();
   public usersController = new UsersController();
@@ -19,4 +19,4 @@ class UsersRoute implements Routes {
   }
 }
 
-export default UsersRoute;
+export default CategoriesRoute;

@@ -12,9 +12,9 @@ class IndexRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/sliders`, this.indexController.index);
-    this.router.post(`${this.path}/sliders`, this.indexController.index);
-    this.router.post(`${this.path}/favorite`, this.indexController.index);
+    this.router.get(`${this.path}sliders`, this.indexController.getSlider);
+    this.router.post(`${this.path}sliders`, this.indexController.createSlider);
+    this.router.post(`${this.path}favorite`, this.indexController.createFavorite);
   }
 }
 
