@@ -6,6 +6,7 @@ const productsSchema: Schema = new Schema(
     id: {
       type: Number,
       required: true,
+      unique: true,
     },
     category: {
       type: Number,
