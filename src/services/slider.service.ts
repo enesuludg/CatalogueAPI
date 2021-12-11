@@ -4,6 +4,7 @@ import { Slider } from "@/interfaces/slider.interface";
 import ProductsModel from "@/models/products.model";
 import SliderModel from "@/models/slider.model";
 import { isEmpty } from "@utils/util";
+import { Product } from "@rhaimes/whatsapp-web.js";
 
 class SlidersService {
   public products = ProductsModel;
@@ -18,6 +19,9 @@ class SlidersService {
     if (isEmpty(sliderData))
       throw new HttpException(400, "You're not productsData");
     const slider: Slider[] = await this.slider.find();
+    const product: Product = await this.products.findOne({ id: sliderData.productId });
+    if (!product)
+    throw new HttpException(400, "Not found Product");
     const length: number = slider.length;
     sliderData.id = length ;
     const createSliderData: Slider = await this.slider.create(sliderData);
