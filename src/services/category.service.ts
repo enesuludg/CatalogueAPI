@@ -40,7 +40,7 @@ class CategoryService {
       throw new HttpException(400, "You're not categoryData");
     const category: Category[] = await this.Category.find();
     const length: number = category.length;
-    categoryData.id = length + 1;
+    if(length == 0) {categoryData.id = length}else{categoryData.id = length + 1;}
     const createCategoryData: Category = await this.Category.create(
       categoryData
     );

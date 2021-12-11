@@ -19,9 +19,9 @@ class IndexController {
     next: NextFunction
   ) => {
     try {
-      const categoryData: Slider[] = await this.slidersService.findAllSlider();
+      const sliderData: Slider[] = await this.slidersService.findAllSlider();
 
-      res.status(200).json({ data: categoryData, message: "findOne" });
+      res.status(200).json({ data: sliderData, message: "findOne" });
     } catch (error) {
       next(error);
     }
@@ -33,12 +33,12 @@ class IndexController {
     next: NextFunction
   ) => {
     try {
-      const categoryData: createSliderDto = req.body;
-      const createCategoryData: Slider = await this.slidersService.createSlider(
-        categoryData
+      const sliderData: createSliderDto = req.body;
+      const createSliderData: Slider = await this.slidersService.createSlider(
+        sliderData
       );
 
-      res.status(201).json({ data: createCategoryData, message: "created" });
+      res.status(201).json({ data: createSliderData, message: "created" });
     } catch (error) {
       next(error);
     }
@@ -49,13 +49,13 @@ class IndexController {
     next: NextFunction
   ) => {
     try {
-      const categoryData: createSliderDto = req.body;
-      const createCategoryData: Slider =
-        await this.slidersService.createFavorite(categoryData);
+      const ProductId: createSliderDto = req.body;
+      const createFavoriteData: Slider =
+        await this.slidersService.createFavorite(ProductId);
 
       res
         .status(200)
-        .json({ data: createCategoryData, message: "AddFavorite" });
+        .json({ data: createFavoriteData, message: "AddFavorite" });
     } catch (error) {
       next(error);
     }

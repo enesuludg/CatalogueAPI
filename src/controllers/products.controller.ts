@@ -12,11 +12,11 @@ class ProductController {
     next: NextFunction
   ) => {
     try {
-      const CategoryId: string = req.params.id;
-      const categoryData: Products =
-        await this.productsService.findProductsById(CategoryId);
+      const ProductId: string = req.params.id;
+      const ProductData: Products =
+        await this.productsService.findProductsById(ProductId);
 
-      res.status(200).json({ data: categoryData, message: "findOne" });
+      res.status(200).json({ data: ProductData, message: "findOne" });
     } catch (error) {
       next(error);
     }
@@ -28,13 +28,10 @@ class ProductController {
     next: NextFunction
   ) => {
     try {
-      const categoryData: createProductDto = req.body;
-      console.log(categoryData);
-
-      const createCategoryData: Products =
-        await this.productsService.createProducts(categoryData);
-
-      res.status(201).json({ data: createCategoryData, message: "created" });
+      const ProductData: createProductDto = req.body;
+      const createProductData: Products =
+        await this.productsService.createProducts(ProductData);
+      res.status(201).json({ data: createProductData, message: "created" });
     } catch (error) {
       next(error);
     }

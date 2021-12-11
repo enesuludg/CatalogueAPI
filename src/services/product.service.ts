@@ -25,14 +25,13 @@ class ProductsService {
   ): Promise<Products> {
     if (isEmpty(productsData))
       throw new HttpException(400, "You're not productsData");
-    console.log(productsData);
     const products: Products[] = await this.Products.find();
     const length: number = products.length;
-    productsData.id = length + 1;
-    const createCategoryData: Products = await this.Products.create(
+    if(length == 0) {productsData.id = length}else{productsData.id = length + 1;}
+    const createProductsData: Products = await this.Products.create(
       productsData
     );
-    return createCategoryData;
+    return createProductsData;
   }
 }
 

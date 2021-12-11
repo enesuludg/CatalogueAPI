@@ -19,7 +19,7 @@ class SlidersService {
       throw new HttpException(400, "You're not productsData");
     const slider: Slider[] = await this.slider.find();
     const length: number = slider.length;
-    sliderData.id = length + 1;
+    if(length == 0) {sliderData.id = length}else{sliderData.id = length + 1;}
     const createSliderData: Slider = await this.slider.create(sliderData);
     return createSliderData;
   }
@@ -27,7 +27,7 @@ class SlidersService {
   public async createFavorite(productsData: any): Promise<any> {
     if (isEmpty(productsData))
       throw new HttpException(400, "You're not productsData");
-    const createCategoryData = await this.products
+    const createFavoriteData = await this.products
       .findOne({ id: productsData.productId })
       .then(async (products) => {
         if (!products) throw new HttpException(400, "Product not found");
@@ -37,7 +37,7 @@ class SlidersService {
           { isFavorite: true }
         );
       });
-    return createCategoryData;
+    return createFavoriteData;
   }
 }
 
